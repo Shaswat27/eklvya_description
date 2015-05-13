@@ -1,0 +1,25 @@
+cmake_minimum_required(VERSION 2.8.3)
+project(beginner_tutorials)
+
+## Find catkin and any catkin packages
+find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs message_generation)
+
+## Declare ROS messages and services
+add_message_files(DIRECTORY msg FILES Num.msg)
+add_service_files(DIRECTORY srv FILES AddTwoInts.srv)
+
+## Generate added messages and services
+generate_messages(DEPENDENCIES std_msgs)
+
+## Declare a catkin package
+catkin_package()
+
+include_directories(include ${catkin_INCLUDE_DIRS})
+
+add_executable(dummy src/dummy.cpp)
+target_link_libraries(dummy ${catkin_LIBRARIES})
+add_dependencies(dummy beginner_tutorials_generate_messages_cpp)
+
+add_executable(velocity src/velocity.cpp)
+target_link_libraries(velocity ${catkin_LIBRARIES})
+add_dependencies(velocity beginner_tutorials_generate_messages_cpp)
